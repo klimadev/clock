@@ -2,7 +2,7 @@
       margin: 0; padding: 0;
       height: 100%; width: 100%;
       background: #000000;
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'Rajdhani', sans-serif;
       color: #00ffcc;
       overflow: hidden;
       display: flex;
@@ -86,13 +86,16 @@
     }
 
     #clock {
-      font-family: 'Bitcount Grid Double', monospace;
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
       font-size: 15vw;
       user-select: none;
       animation: rgbWave 3s infinite;
     }
 
     #date {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
       font-size: 3.5vw;
       user-select: none;
       animation: rgbWaveDate 2.5s infinite;
