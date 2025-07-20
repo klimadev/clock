@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Relógio CyberSec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bitcount+Grid+Double:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="hud">
+    <div class="clock-line">
+      <div id="clock">--:--</div>
+      <div id="date">--/--/----</div>
+    </div>
+    <div class="status-line">Status: <span style="color: #00ff00;">ONLINE</span></div>
+    <div class="status-line">IP: 192.168.0.1</div>
+    <div class="status-line">Threat Level:</div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+    <div class="log" id="logDisplay"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

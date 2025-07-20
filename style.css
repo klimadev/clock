@@ -1,0 +1,93 @@
+html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      background: #362247;
+      font-family: 'Press Start 2P', monospace;
+      color: #00ffcc;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #hud {
+      text-align: left;
+      border: 2px solid rgba(0, 255, 204, 0.4);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 1.5em 2em;
+      border-radius: 12px;
+      max-width: 95vw;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+      overflow: hidden;
+      width: 90vw;
+      height: 90vh;
+    }
+
+    .clock-line {
+      display: flex;
+      align-items: baseline;
+      gap: 1vw;
+    }
+
+    #clock {
+      font-family: 'Bitcount Grid Double', monospace;
+      font-size: 9vw;
+      color: #bb33ff;
+      user-select: none;
+    }
+
+    #date {
+      font-size: 2vw;
+      color: #00ffee;
+      user-select: none;
+    }
+
+    .status-line {
+      font-size: 1.6vw;
+      user-select: none;
+      margin-bottom: 0.6em;
+    }
+
+    .bar {
+      height: 14px;
+      background: transparent;
+      border: 2px dashed #00ffcc;
+      border-radius: 7px;
+      overflow: hidden;
+      max-width: 60vw;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #00ffcc;
+      border-radius: 7px;
+    }
+
+    .log {
+      font-size: 0.9rem;
+      height: 16em;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+      user-select: none;
+      white-space: pre-wrap;
+      margin-top: 1.5em;
+    }
+
+    .log::-webkit-scrollbar {
+      display: none;
+    }
+
+    .log-line {
+      display: block;
+      color: #00ffcc;
+    }
+
+    .log-line.alert {
+      color: #ff4444;
+    }
