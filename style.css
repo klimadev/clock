@@ -34,13 +34,13 @@ html, body {
 
     #clock {
       font-family: 'Bitcount Grid Double', monospace;
-      font-size: 9vw;
+      font-size: 12vw;
       color: #bb33ff;
       user-select: none;
     }
 
     #date {
-      font-size: 2vw;
+      font-size: 2.5vw;
       color: #00ffee;
       user-select: none;
     }
