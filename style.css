@@ -11,58 +11,54 @@ html, body {
     }
 
     #hud {
-      text-align: left;
+      text-align: center;
       border: 2px solid rgba(0, 255, 204, 0.4);
       background: rgba(0, 0, 0, 0.4);
-      padding: 1.5em 2em;
+      padding: 2em 3em;
       border-radius: 12px;
       max-width: 95vw;
       max-height: 95vh;
       display: flex;
       flex-direction: column;
-      gap: 1.2em;
+      justify-content: center;
+      align-items: center;
+      gap: 2em;
       overflow: hidden;
-      width: 90vw;
-      height: 90vh;
     }
 
     .clock-line {
       display: flex;
-      align-items: baseline;
-      gap: 1vw;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
     }
 
     #clock {
       font-family: 'Bitcount Grid Double', monospace;
-      font-size: 12vw;
+      font-size: 15vw;
       color: #bb33ff;
       user-select: none;
     }
 
     #date {
-      font-size: 2.5vw;
+      font-size: 3.5vw;
       color: #00ffee;
       user-select: none;
     }
 
-    .status-line {
-      font-size: 1.6vw;
-      user-select: none;
-      margin-bottom: 0.6em;
-    }
-
     .bar {
-      height: 14px;
+      height: 20px;
       background: transparent;
       border: 2px dashed #00ffcc;
-      border-radius: 7px;
+      border-radius: 10px;
       overflow: hidden;
-      max-width: 60vw;
+      width: 80vw;
+      max-width: 600px;
       position: relative;
     }
 
     .bar-fill {
       height: 100%;
       background: #00ffcc;
-      border-radius: 7px;
+      border-radius: 10px;
     }
