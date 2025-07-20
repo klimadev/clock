@@ -1,7 +1,7 @@
-html, body {
+    html, body {
       margin: 0; padding: 0;
       height: 100%; width: 100%;
-      background: #362247;
+      background: #000000;
       font-family: 'Press Start 2P', monospace;
       color: #00ffcc;
       overflow: hidden;
@@ -10,7 +10,59 @@ html, body {
       align-items: center;
     }
 
-    #hud {
+    @keyframes rgbWave {
+      0% { 
+        color: #ff0000; 
+        text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+      }
+      16.66% { 
+        color: #ff8800; 
+        text-shadow: 0 0 20px #ff8800, 0 0 40px #ff8800, 0 0 60px #ff8800;
+      }
+      33.33% { 
+        color: #ffff00; 
+        text-shadow: 0 0 20px #ffff00, 0 0 40px #ffff00, 0 0 60px #ffff00;
+      }
+      50% { 
+        color: #00ff00; 
+        text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+      }
+      66.66% { 
+        color: #0088ff; 
+        text-shadow: 0 0 20px #0088ff, 0 0 40px #0088ff, 0 0 60px #0088ff;
+      }
+      83.33% { 
+        color: #8800ff; 
+        text-shadow: 0 0 20px #8800ff, 0 0 40px #8800ff, 0 0 60px #8800ff;
+      }
+      100% { 
+        color: #ff0000; 
+        text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+      }
+    }
+
+    @keyframes rgbWaveDate {
+      0% { 
+        color: #00ff88; 
+        text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+      }
+      25% { 
+        color: #88ff00; 
+        text-shadow: 0 0 15px #88ff00, 0 0 30px #88ff00;
+      }
+      50% { 
+        color: #ff0088; 
+        text-shadow: 0 0 15px #ff0088, 0 0 30px #ff0088;
+      }
+      75% { 
+        color: #0088ff; 
+        text-shadow: 0 0 15px #0088ff, 0 0 30px #0088ff;
+      }
+      100% { 
+        color: #00ff88; 
+        text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+      }
+    }    #hud {
       text-align: center;
       border: 2px solid rgba(0, 255, 204, 0.4);
       background: rgba(0, 0, 0, 0.4);
@@ -36,14 +88,14 @@ html, body {
     #clock {
       font-family: 'Bitcount Grid Double', monospace;
       font-size: 15vw;
-      color: #bb33ff;
       user-select: none;
+      animation: rgbWave 3s infinite;
     }
 
     #date {
       font-size: 3.5vw;
-      color: #00ffee;
       user-select: none;
+      animation: rgbWaveDate 2.5s infinite;
     }
 
     .bar {
