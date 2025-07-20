@@ -82,13 +82,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1em;
+      gap: 1.5em;
     }
 
     #clock {
       font-family: 'Orbitron', monospace;
       font-weight: 900;
-      font-size: 15vw;
+      font-size: 20vw;
       user-select: none;
       animation: rgbWave 8s infinite;
     }
@@ -96,7 +96,7 @@
     #date {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 600;
-      font-size: 3.5vw;
+      font-size: 5vw;
       user-select: none;
       animation: rgbWaveDate 6s infinite;
     }
