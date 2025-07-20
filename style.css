@@ -66,28 +66,3 @@ html, body {
       background: #00ffcc;
       border-radius: 7px;
     }
-
-    .log {
-      font-size: 0.9rem;
-      height: 16em;
-      overflow-y: auto;
-      overflow-x: hidden;
-      position: relative;
-      line-height: 1.6;
-      user-select: none;
-      white-space: pre-wrap;
-      margin-top: 1.5em;
-    }
-
-    .log::-webkit-scrollbar {
-      display: none;
-    }
-
-    .log-line {
-      display: block;
-      color: #00ffcc;
-    }
-
-    .log-line.alert {
-      color: #ff4444;
-    }
