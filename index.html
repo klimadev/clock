@@ -15,12 +15,15 @@
 <body>
   <div id="hud">
     <div class="clock-line">
-      <div id="clock">--:--</div>
+      <div id="clock">
+        <span class="hour-tens">-</span><span class="hour-units">-</span><span class="separator">:</span><span class="minute-tens">-</span><span class="minute-units">-</span>
+      </div>
       <div id="date">--/--/----</div>
     </div>
     <div class="bar"><div class="bar-fill" id="barFill"></div></div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

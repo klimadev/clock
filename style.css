@@ -8,6 +8,29 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative; /* Para o pseudo-elemento do grid */
+    }
+
+    /* Efeito de Grid de Fundo */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(to right, rgba(0, 255, 204, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.1;
+      z-index: -1; /* Fica atrás de todo o conteúdo */
+      animation: grid-pulse 10s infinite alternate;
+    }
+
+    @keyframes grid-pulse {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.02); }
     }
 
     @keyframes rgbWave {
@@ -62,9 +85,11 @@
         color: #66ffaa; 
         text-shadow: 0 0 8px rgba(102, 255, 170, 0.4), 0 0 15px rgba(102, 255, 170, 0.2);
       }
-    }    #hud {
+    }    /* Inicialmente invisível para a animação de boot-up */
+    #hud {
+      opacity: 0;
       text-align: center;
-      border: 2px solid rgba(0, 255, 204, 0.4);
+      border: 2px solid transparent; /* Bordas transparentes, GSAP vai animar */
       background: rgba(0, 0, 0, 0.4);
       padding: 2em 3em;
       border-radius: 12px;
@@ -76,7 +101,42 @@
       align-items: center;
       gap: 2em;
       overflow: hidden;
+      box-shadow: 0 0 0 rgba(0, 255, 204, 0); /* Para efeito de pulso */
+      position: relative; /* Para o overlay de glitch */
     }
+
+    /* Overlay para efeito de ruído/glitch */
+    #hud::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LmweYWQtaHR0cC8xLjAvcmRmLXNjaGVtYSNpcmNoZWR1bGUvIiB4bWxuczpmaWx0ZXJDcml0ZXJpYXM9Imh0dHA6Ly9wcm9nZXNzaXZlLXdlYi5naXRodWIuaW8vZmls/ZXJzLTIuMC8iPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWZEb2M9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29t/eGFwLzEuMC9tbS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ViL2RjdGVybXMvIiB4bWxuczpjaW09Imh0dHA6Ly93d3cud3Mub3JnLzIwMDQvMDQvcXwvZGMteGxpbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ViL2RjdGVybXMvIiB4bWxuczpjdXJzdG9tPSJodHRwOi8vcGhpY2FsLW1lZGlhLmNvbS9ucy9hZG9iZS8xLjAvY3VzdG9tLyIgeG1sbnM6YWRvYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6cHJvc29iZWM9Imh0dHA6Ly9waGljYWwtbWVkaWEuY29tL25zL2Fkb2JlLzEuMC9wcm9zb2JlYy8iIHhtbG5zOmFkYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczp4Ym1wdj0iaHR0cDovL25zLmFkb2JlLmNvbS94YW1wL21pbm9yLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vYWRvYmUuY29tL3hnZi92MTIvZG9j/cy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpib29sc3VyY2VkPSJodHRwOi8vd3d3LmJvb3Rz/dXJjZS5jb20vbnMvYWRvYmUvMS4wLyIgeG1sbnM6c2VvPmh0dHA6Ly9zY2hlbWFzLm9yZy9zZW8vIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0I0MDNGNkE2MzgyMTFFNTg5RDVCMUUzMEIzNzg2Q0QiIHN0UmVmOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0I0MDNGNjk2MzgyMTFFNTg5RDVCMUUzMEIzNzg2Q0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InciPz4o0uAAAAATSURBVHjaYmBgYGBgYMDAAAACQAAOQz2WAAAAAElFTkSuQmCC') repeat;
+        opacity: 0; /* Controlado por JS */
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    /* Efeitos de borda para o boot-up */
+    #hud.boot-animating {
+        border-color: transparent; /* A borda será desenhada com GSAP */
+    }
+    
+    .glitch-overlay {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9999;
+    }
+    
 
     .clock-line {
       display: flex;
@@ -91,6 +151,7 @@
       font-size: 20vw;
       user-select: none;
       animation: rgbWave 8s infinite;
+      will-change: transform, color, text-shadow, opacity;
     }
 
     #date {
@@ -99,6 +160,7 @@
       font-size: 5vw;
       user-select: none;
       animation: rgbWaveDate 6s infinite;
+      will-change: transform, color, text-shadow, opacity;
     }
 
     .bar {
@@ -110,10 +172,31 @@
       width: 80vw;
       max-width: 600px;
       position: relative;
+      will-change: width, opacity;
     }
 
     .bar-fill {
       height: 100%;
       background: #00ffcc;
       border-radius: 10px;
+      will-change: width, background-color;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar-fill::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%);
+      background-size: 100% 4px;
+      animation: scanline 0.5s linear infinite;
+    }
+
+    @keyframes scanline {
+      from { background-position: 0 0; }
+      to { background-position: 0 4px; }
     }
