@@ -44,7 +44,7 @@ html, body {
   will-change: transform, color, text-shadow, opacity;
 }
 
-#date {
+#day-of-week, #full-date {
   text-shadow: 
     0 0 3px rgba(var(--primary-rgb), 0.7), 
     0 0 8px rgba(var(--primary-rgb), 0.4);

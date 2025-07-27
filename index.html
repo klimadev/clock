@@ -26,20 +26,16 @@
           fontFamily: {
             clock: ['Orbitron', 'monospace'],
             date: ['Rajdhani', 'sans-serif'],
-            milliseconds: ['Share Tech Mono', 'monospace'], // Para segundos, mas mantemos o nome original da variável
-            // terminal: ['Press Start 2P', 'monospace'], // Esta fonte não será mais necessária para o texto de boot
+            milliseconds: ['Share Tech Mono', 'monospace'],
           },
           keyframes: {
-            flicker: { // Nova animação para os separadores
+            flicker: {
               '0%, 19.999%, 22%, 49.999%, 52%, 58%, 60%, 82%, 84%, 100%': { opacity: 1 },
               '20%, 21.999%, 50%, 51.999%, 59%, 83%': { opacity: 0.2 },
             },
-            // 'cursor-blink' não será mais necessário
           },
           animation: {
             flicker: 'flicker 2s infinite step-end',
-            // 'cursor-blink' não será mais necessário
-            // rgbWave-clock e rgbWave-date continuarão no style.css
           },
         },
       },
@@ -53,8 +49,14 @@
       <div id="clock" class="font-clock font-extrabold text-[clamp(10vw,200px,25vw)] lg:text-[clamp(8vw,150px,20vw)] leading-none select-none text-primary animate-rgbWave-clock">
         <span class="char">-</span><span class="char">-</span><span class="char separator animate-flicker">:</span><span class="char">-</span><span class="char">-</span><span class="char separator animate-flicker">.</span><span class="char font-milliseconds text-[clamp(4vw,80px,10vw)] lg:text-[clamp(3vw,60px,8vw)] align-super">-</span><span class="char font-milliseconds text-[clamp(4vw,80px,10vw)] lg:text-[clamp(3vw,60px,8vw)] align-super">-</span>
       </div>
-      <div id="date" class="font-date font-semibold text-[clamp(2vw,50px,6vw)] lg:text-[clamp(1.5vw,40px,5vw)] select-none text-primary animate-rgbWave-date">
-        <span class="char">-</span><span class="char">-</span><span class="char separator">/</span><span class="char">-</span><span class="char">-</span><span class="char separator">/</span><span class="char">-</span><span class="char">-</span><span class="char">-</span><span class="char">-</span>
+      <!-- Container para a nova data aprimorada -->
+      <div id="date-container" class="flex flex-col items-center gap-2">
+        <div id="day-of-week" class="font-date font-bold text-[clamp(1.8vw,40px,5vw)] lg:text-[clamp(1.2vw,30px,4vw)] tracking-widest uppercase">
+          <!-- Preenchido por JS -->
+        </div>
+        <div id="full-date" class="font-date font-normal text-[clamp(1.5vw,30px,4vw)] lg:text-[clamp(1vw,24px,3vw)]">
+          <!-- Preenchido por JS -->
+        </div>
       </div>
     </div>
     <div id="barContainer" class="w-full max-w-md h-5 bg-transparent border-2 border-dashed border-primary rounded-xl overflow-hidden opacity-0 invisible">
