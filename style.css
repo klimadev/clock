@@ -1,182 +1,97 @@
-    :root {
-      --primary-color: #00ffcc; /* Base Neon Green */
-      --primary-rgb: 0, 255, 204; /* RGB para variações de opacidade */
-      --secondary-color: #ff00ff; /* Neon Magenta/Purple accent */
-      --secondary-rgb: 255, 0, 255; /* RGB para variações de opacidade */
-      --glitch-color: #ff6600; /* Laranja para flashes de glitch específicos */
-      --glitch-color-rgb: 255, 102, 0; /* RGB do glitch para text-shadow */
+:root {
+  --primary-color: #00FFFF; /* Blueprint Cyan */
+  --primary-rgb: 0, 255, 255;
+  --bg-color: #0A2A4D; /* Deep Blueprint Blue */
+  --bg-rgb: 10, 42, 77;
+  --accent-color: #FFFFFF; /* White for highlights */
+  --accent-rgb: 255, 255, 255;
+  --flicker-color: #99FFFF; /* Lighter cyan for flicker effect */
+}
 
-      /* Tailwind Customization for colors and fonts - Referências para as variáveis CSS */
-      /* O Tailwind CDN com JIT lê isso diretamente do <script type="text/tailwindcss"> no HTML */
-      /* Mas manter as variáveis aqui é bom para o CSS que não é puramente Tailwind */
-    }
+/* Regras globais */
+html, body {
+  font-family: 'Rajdhani', sans-serif; /* Usando Rajdhani como padrão */
+  color: var(--primary-color);
+  background-color: var(--bg-color); /* Definindo o fundo aqui */
+}
 
-    /* As fontes agora são definidas no Tailwind Config via fontFamily e usadas como classes como font-clock */
+/* Remover a animação de onda RGB do HTML */
+#clock, #date, #seconds {
+  animation: none; 
+}
 
-    /* Regras globais que não serão sobrepostas pelo Tailwind ou são base */
-    html, body {
-      /* Tailwind já cuida de 'margin', 'padding', 'height', 'width', 'background', 'display', 'justify-content', 'align-items', 'min-h-screen', 'overflow-hidden', 'relative' */
-      font-family: var(--font-date); /* Fallback/padrão, overridden por classes específicas */
-      color: var(--primary-color); /* Fallback/padrão, overridden por classes específicas */
-    }
+/* HUD Styling */
+#hud {
+  border: 1px solid rgba(var(--primary-rgb), 0.5);
+  background: rgba(var(--bg-rgb), 0.6);
+  backdrop-filter: blur(5px); /* Efeito de vidro fosco */
+  box-shadow: 
+    0 0 15px rgba(var(--primary-rgb), 0.3), 
+    inset 0 0 10px rgba(var(--primary-rgb), 0.2);
+  transition: all 0.5s ease-out;
+}
 
-    /* Efeito de Grid de Fundo - Mantido no CSS pois é complexo e global */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(to right, rgba(var(--primary-rgb), 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05) 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.1;
-      z-index: -1;
-      animation: grid-pulse 10s infinite alternate;
-    }
+.char {
+  display: inline-block; /* Necessário para aplicar transformações */
+}
 
-    @keyframes grid-pulse {
-      0% { opacity: 0.05; transform: scale(1); }
-      100% { opacity: 0.15; transform: scale(1.02); }
-    }
+/* Clock & Date Text Styling */
+#clock {
+  text-shadow: 
+    0 0 5px rgba(var(--primary-rgb), 0.8), 
+    0 0 15px rgba(var(--primary-rgb), 0.5), 
+    0 0 30px rgba(var(--primary-rgb), 0.2);
+  will-change: transform, color, text-shadow, opacity;
+}
 
-    /* Animações de onda RGB para relógio e data - Mantidas no CSS */
-    @keyframes rgbWave-clock {
-      0% { color: var(--primary-color); text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.7), 0 0 20px rgba(var(--primary-rgb), 0.5), 0 0 30px rgba(var(--primary-rgb), 0.3); }
-      25% { color: #00ccff; text-shadow: 0 0 10px rgba(0, 204, 255, 0.7), 0 0 20px rgba(0, 204, 255, 0.5), 0 0 30px rgba(0, 204, 255, 0.3); }
-      50% { color: var(--secondary-color); text-shadow: 0 0 10px rgba(var(--secondary-rgb), 0.7), 0 0 20px rgba(var(--secondary-rgb), 0.5), 0 0 30px rgba(var(--secondary-rgb), 0.3); }
-      75% { color: #cc00ff; text-shadow: 0 0 10px rgba(204, 0, 255, 0.7), 0 0 20px rgba(204, 0, 255, 0.5), 0 0 30px rgba(204, 0, 255, 0.3); }
-      100% { color: var(--primary-color); text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.7), 0 0 20px rgba(var(--primary-rgb), 0.5), 0 0 30px rgba(var(--primary-rgb), 0.3); }
-    }
+#date {
+  text-shadow: 
+    0 0 3px rgba(var(--primary-rgb), 0.7), 
+    0 0 8px rgba(var(--primary-rgb), 0.4);
+  will-change: transform, color, text-shadow, opacity;
+}
 
-    @keyframes rgbWave-date {
-      0% { color: var(--primary-color); text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5), 0 0 15px rgba(var(--primary-rgb), 0.3); }
-      33% { color: #ffcc00; text-shadow: 0 0 8px rgba(255, 204, 0, 0.5), 0 0 15px rgba(255, 204, 0, 0.3); }
-      66% { color: var(--secondary-color); text-shadow: 0 0 8px rgba(var(--secondary-rgb), 0.5), 0 0 15px rgba(var(--secondary-rgb), 0.3); }
-      100% { color: var(--primary-color); text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5), 0 0 15px rgba(var(--primary-rgb), 0.3); }
-    }
+.second {
+  /* Os segundos estão dentro do #clock, mas podemos dar um estilo diferente se quisermos */
+  font-size: 0.5em; /* Exemplo: Torna os segundos menores */
+  vertical-align: super;
+  opacity: 0.8;
+  color: var(--accent-color);
+  text-shadow: 
+    0 0 3px rgba(var(--accent-rgb), 0.7), 
+    0 0 8px rgba(var(--accent-rgb), 0.5);
+}
 
-    /* HUD - Propriedades complexas que não são facilmente expressas em Tailwind ou são mais complexas */
-    #hud {
-      border: 2px solid rgba(var(--primary-rgb), 0.4); /* Borda com opacidade variável */
-      background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 100%); /* Fundo com gradiente sutil */
-      box-shadow:
-        0 0 5px rgba(var(--primary-rgb), 0.6),
-        0 0 15px rgba(var(--primary-rgb), 0.4),
-        0 0 30px rgba(var(--primary-rgb), 0.2); /* Múltiplas sombras para um brilho mais rico */
-    }
+/* Separadores */
+.separator {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  margin: 0 0.05em;
+  text-shadow: inherit; /* Herda o brilho do relógio */
+}
 
-    /* Overlay para efeito de ruído/glitch na tela - Mantido no CSS */
-    #hud::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        /* Pequena imagem base64 para o padrão de ruído */
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTZlNUa3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21ldGEvIiB4bXAtdGtkPSJodHRwOi8vcGhpY2FsLW1lZGlhLmNvbS9ucy9hZG9iZS8xLjAvY3VzdG9tLyIgeG1sbnM6cmRmPSJodHRwOi8vd3d3Lnczd3d3Lm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjb21zOmFkYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ebnZjdGVybXMvIiB4bWxuczpjaW09Imh0dHA6Ly93d3cud3Mub3JnLzIwMDQvMDQvcXwvZGMteGxpbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ViL2RjdGVybXMvIiB4bWxuczpjdXJzdG9tPSJodHRwOi8vcGhpY2FsLW1lZGlhLmNvbS9ucy9hZG9iZS8xLjAvY3VzdG9tLyIgeG1sbnM6YWRvYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6cHJvc29iZWM9Imh0dHA6Ly9waGljYWwtbWVkaWEuY29tL25zL2Fkb2JlLzEuMC9wcm9z/YmVjLyIgeG1sbnM6YWRiZT0iaHR0cDovL25zLmFkb2JlLmNvbS9hZG9iZS8xLjAvIiB4bWxuczpzY2hlbWFzLm9yZ2FuaXphdGlvbj0iaHR0cDovL3NjaGVtYXMub3JnL29yZ2FuaXphdGlvbi8iIHhtbG5zOnN0ZF8xPTJodHRwOi8vbnMuYWRvYmUuY29tL3hhc/AvMS4wL2RlZmF1bHQvIiB4bWxuczpzdGRfMT0ycmRmOiJodHRwOi8vbnMuYWRvYmUuY29tL3hhc/AvMS4wLyI+PHJkZjpSREY+PHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiPjx4bXBNTTpkZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPXhtbC5pZDo0NzQxNjk1OTQxNjgxMUU2QjlBQjkwQjMxOTU1RTJCMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NzQxNjk1OTQxNjgxMUU2QjlBQjkwQjMxOTU1RTJCMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJ3Ij8+x4f71AAAAF9JREFUeNqEYoCDgYGCmYGBgoWBAQEIMh/gDgQFBQYHBzAwMDDwAgFBNBQQEBCBiYGBgYGBAQEBMhBGBgYGRgUFBSYGBgYMDAwMJgAAiFkgKAgIMR+mBhJgIADmJ5/QdE8uAAAAAElFTkSuQmCC') repeat;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 10;
-    }
+/* Barra de Progresso */
+#barContainer {
+  width: 90%;
+  max-width: 800px;
+  height: 6px;
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  position: relative; /* Adicionado para ser o contexto de posicionamento */
+}
 
-    .glitch-overlay {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--glitch-color);
-        opacity: 0;
-        pointer-events: none;
-        z-index: 9999;
-    }
-    
-    /* Clock Line - A classe flex flex-col items-center gap-6 w-full está no HTML */
-
-    /* Clock, Date, Seconds - Tamanhos responsivos via Tailwind text-[] e clamp() no HTML */
-    #clock {
-      /* Tailwind: font-clock, font-extrabold, text-[clamp(...)], leading-none, select-none, text-primary, animate-rgbWave-clock, opacity-0, invisible, translate-y-5 */
-      will-change: transform, color, text-shadow, opacity;
-    }
-
-    #date {
-      /* Tailwind: font-date, font-semibold, text-[clamp(...)], select-none, text-primary, animate-rgbWave-date, opacity-0, invisible, translate-y-5 */
-      will-change: transform, color, text-shadow, opacity;
-    }
-
-    #seconds {
-      /* Tailwind: font-milliseconds, text-[clamp(...)], align-super, opacity-70, animate-rgbWave-date */
-      /* A fonte já está definida no font-family do Tailwind config */
-      text-shadow:
-        0 0 5px rgba(var(--primary-rgb), 0.5),
-        0 0 10px rgba(var(--primary-rgb), 0.3);
-      will-change: opacity, color, text-shadow;
-    }
-
-    /* Separadores com flicker (definidos no Tailwind config) */
-    .separator {
-        /* Classes Tailwind 'animate-flicker' e ':'' / '.' no HTML */
-        font-family: var(--font-clock); /* Para manter a fonte consistente com o relógio */
-        font-weight: 900;
-        margin: 0 0.05em; /* Espaçamento sutil */
-    }
-
-    /* Barra de Progresso - Propriedades complexas em CSS, layout em Tailwind */
-    .bar {
-      /* Tailwind: w-full, max-w-md, h-5, bg-transparent, border-2, border-dashed, border-primary, rounded-xl, overflow-hidden, opacity-0, invisible */
-      position: relative;
-      will-change: width, opacity;
-    }
-
-    .bar-fill {
-      /* Tailwind: h-full, bg-primary, rounded-xl, relative, overflow-hidden */
-      background: linear-gradient(to right, rgba(var(--primary-rgb), 0.8), var(--primary-color));
-      will-change: width, background-color;
-    }
-
-    .bar-fill::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%);
-      background-size: 100% 4px;
-      animation: scanline 0.5s linear infinite;
-    }
-
-    @keyframes scanline {
-      from { background-position: 0 0; }
-      to { background-position: 0 4px; }
-    }
-
-    /* Texto de Pré-Boot - Mantido no CSS, com font-terminal do Tailwind */
-    .pre-boot-text {
-      font-family: var(--font-terminal); /* Usando a nova variável de fonte do Tailwind */
-      color: var(--primary-color);
-      font-size: clamp(0.8rem, 1.5vw + 0.5rem, 2rem); /* Mais responsivo e legível */
-      opacity: 0;
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.8);
-      white-space: pre; /* Preserva o espaço em branco para mensagens de várias linhas */
-      line-height: 1.5;
-      text-align: center; /* Centraliza o texto */
-    }
-
-    /* Cursor para o efeito de digitação */
-    .pre-boot-text::after {
-      content: '_'; /* Caractere do cursor */
-      animation: cursor-blink 1s infinite step-end; /* Animação de piscar do Tailwind */
-      display: inline-block;
-      margin-left: 0.1em;
-      opacity: 0; /* Escondido inicialmente, GSAP irá controlar */
-    }
+#barFill {
+  height: 100%;
+  width: 0%; /* Inicia com 0, controlado por JS */
+  background: linear-gradient(to right, var(--flicker-color), var(--primary-color));
+  box-shadow: 0 0 8px rgba(var(--primary-rgb), 0.7);
+  border-radius: 3px;
+  will-change: width, transform;
+  /* Mágica para expansão central */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
