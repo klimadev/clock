@@ -154,7 +154,7 @@ function animateNetwork() {
 window.addEventListener('resize', resizeCanvas);
 // --- Fim da Animação da Rede Canvas ---
 
-// --- Seletores de Elementos ---
+// --- Seletores de Elementos e Variáveis Globais ---
 const hudElement = document.getElementById('hud');
 const clockElement = document.getElementById('clock');
 const dayOfWeekElement = document.getElementById('day-of-week');
@@ -164,17 +164,15 @@ const barFill = document.getElementById("barFill");
 
 let animationFrameId;
 let lastDay = -1;
+let clockChars;
 
 // --- Funções Auxiliares ---
 function formatTime(value) {
     return String(value).padStart(2, '0');
 }
 
-/**
- * FIX: Adiciona &nbsp; para espaços para renderização correta no HTML.
- */
 function createCharSpans(text) {
-    return text.split('').map(char => `<span class="char" style="display: inline-block;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+    return text.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
 }
 
 function getFormattedDate() {
@@ -190,55 +188,59 @@ function getFormattedDate() {
 }
 
 /**
- * Animação "Tick" de alta qualidade para cada dígito.
- * Imita um display de rolagem mecânica.
+ * Animação de "Tick" de alta qualidade para cada dígito.
  */
 function animateDigit(element, newValue) {
     if (element.textContent === newValue) return;
 
     gsap.timeline()
-        .to(element, {
-            duration: 0.15,
-            y: '10px',
-            opacity: 0,
-            ease: "power2.in",
-            onComplete: () => {
-                element.textContent = newValue;
+        .to(element, { duration: 0.15, y: '10px', opacity: 0, ease: "power2.in", onComplete: () => { element.textContent = newValue; } })
+        .fromTo(element, { y: '-10px', opacity: 0 }, { duration: 0.15, y: '0px', opacity: 1, ease: "power2.out" });
+}
+
+/**
+ * Animação de "Scramble" para revelar um valor.
+ */
+function animateScramble(element, finalValue) {
+    let proxy = { value: 0 };
+    const chars = '0123456789-';
+    
+    element.textContent = '--'; // Inicia com um placeholder
+    
+    return gsap.to(proxy, {
+        duration: 0.8,
+        value: 1,
+        ease: "power2.inOut",
+        onUpdate: function() {
+            if (Math.random() > 0.1) { // Controla a frequência do "scramble"
+                 element.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
             }
-        })
-        .fromTo(element, {
-            y: '-10px',
-            opacity: 0
-        }, {
-            duration: 0.15,
-            y: '0px',
-            opacity: 1,
-            ease: "power2.out"
-        });
+        },
+        onComplete: function() {
+            element.textContent = finalValue;
+            gsap.fromTo(element, { scale: 1.5, opacity: 0.5 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
+        }
+    });
 }
 
 
 // --- Funções Principais ---
 function updateClockAndDate() {
     const now = new Date();
-    
-    // Atualiza Relógio
     const h = formatTime(now.getHours());
     const m = formatTime(now.getMinutes());
     const s = formatTime(now.getSeconds());
     const clockDisplayString = `${h}:${m}.${s}`;
-    const clockChars = clockElement.querySelectorAll('.char');
+    
     for (let i = 0; i < clockChars.length; i++) {
         if (!clockChars[i].classList.contains('separator')) {
             animateDigit(clockChars[i], clockDisplayString[i]);
         }
     }
 
-    // Atualiza Barra de Progresso
     const progress = ((s * 1000 + now.getMilliseconds()) / 60000) * 100;
     gsap.to(barFill, { width: `${progress}%`, ease: "none" });
 
-    // Atualiza Data (apenas à meia-noite)
     const currentDay = now.getDate();
     if (currentDay !== lastDay) {
         updateDateAnimated();
@@ -248,9 +250,6 @@ function updateClockAndDate() {
     animationFrameId = requestAnimationFrame(updateClockAndDate);
 }
 
-/**
- * Animação de "desintegração" para a data antiga e "revelação" para a nova.
- */
 function updateDateAnimated() {
     const oldDayOfWeekChars = dayOfWeekElement.querySelectorAll('.char');
     const oldFullDateChars = fullDateElement.querySelectorAll('.char');
@@ -260,12 +259,8 @@ function updateDateAnimated() {
 
     if (oldDayOfWeekChars.length > 0 || oldFullDateChars.length > 0) {
         tl.to([oldDayOfWeekChars, oldFullDateChars], {
-            duration: 0.5,
-            autoAlpha: 0,
-            filter: "blur(5px)",
-            y: 20,
-            stagger: { each: 0.02, from: "random" },
-            ease: "power2.in"
+            duration: 0.5, autoAlpha: 0, filter: "blur(5px)", y: 20,
+            stagger: { each: 0.02, from: "random" }, ease: "power2.in"
         });
     }
 
@@ -277,29 +272,14 @@ function updateDateAnimated() {
         const newFullDateChars = fullDateElement.querySelectorAll('.char');
         
         gsap.set([newDayOfWeekChars, newFullDateChars], { autoAlpha: 0, y: -15, filter: "blur(3px)" });
-        gsap.to(newDayOfWeekChars, { 
-            duration: 1, 
-            autoAlpha: 1, 
-            y: 0, 
-            filter: "blur(0px)",
-            stagger: 0.05, 
-            ease: "elastic.out(1, 0.75)" 
-        });
-        gsap.to(newFullDateChars, { 
-            duration: 1, 
-            autoAlpha: 1, 
-            y: 0, 
-            filter: "blur(0px)",
-            stagger: 0.04, 
-            ease: "elastic.out(1, 0.75)", 
-            delay: 0.2 
-        });
+        gsap.to(newDayOfWeekChars, { duration: 1, autoAlpha: 1, y: 0, filter: "blur(0px)", stagger: 0.05, ease: "elastic.out(1, 0.75)" });
+        gsap.to(newFullDateChars, { duration: 1, autoAlpha: 1, y: 0, filter: "blur(0px)", stagger: 0.04, ease: "elastic.out(1, 0.75)", delay: 0.2 });
     });
 }
 
 
 function initBootSequence() {
-    // --- 1. Preparação (Estado Inicial) ---
+    // --- 1. Preparação ---
     gsap.set(hudElement, { autoAlpha: 0, scale: 0.9 });
     gsap.set(barContainer, { autoAlpha: 0 });
     gsap.set(barFill, { width: 0 });
@@ -309,13 +289,18 @@ function initBootSequence() {
     fullDateElement.innerHTML = createCharSpans(fullDate);
     lastDay = new Date().getDate();
     
-    const clockChars = clockElement.querySelectorAll('.char');
+    clockChars = clockElement.querySelectorAll('.char');
     const dayOfWeekChars = dayOfWeekElement.querySelectorAll('.char');
     const fullDateChars = fullDateElement.querySelectorAll('.char');
+    
+    // Inicia com '--' em vez de texto real para a animação de scramble
+    clockChars.forEach(char => { if(!char.classList.contains('separator')) { char.textContent = '--'; }});
 
-    gsap.set([...clockChars, ...dayOfWeekChars, ...fullDateChars], { autoAlpha: 0, y: 15, filter: "blur(5px)" });
+    gsap.set([canvas, ...clockChars, ...dayOfWeekChars, ...fullDateChars], { autoAlpha: 0 });
+    gsap.set([ ...clockChars, ...dayOfWeekChars, ...fullDateChars], { y: 15, filter: "blur(5px)" });
 
-    // --- 2. Timeline Principal da Animação ---
+
+    // --- 2. Timeline Principal ---
     const tl = gsap.timeline({ 
         defaults: { ease: "power2.out" },
         onComplete: () => {
@@ -323,62 +308,37 @@ function initBootSequence() {
         }
     });
 
-    // Staging e Antecipação do HUD
-    tl.to(hudElement, {
-        duration: 1.2,
-        autoAlpha: 1,
-        scale: 1,
-        ease: "back.out(1.7)"
-    }, "start");
+    // Orquestração da cena
+    tl.to(canvas, { duration: 1.5, autoAlpha: 1, ease: "sine.inOut" }, "start")
+      .to(hudElement, { duration: 1.2, autoAlpha: 1, scale: 1, ease: "back.out(1.7)" }, "start+=0.5");
 
-    // Revelação do Relógio (Follow Through e Overlapping Action)
+    // Revelação da UI
+    tl.to([...dayOfWeekChars, ...fullDateChars], {
+        duration: 1.2, autoAlpha: 1, y: 0, filter: "blur(0px)",
+        stagger: 0.04, ease: "elastic.out(1, 0.8)"
+    }, "start+=1.2");
+
     tl.to(clockChars, {
-        duration: 1.5,
-        autoAlpha: 1,
-        y: 0,
-        filter: "blur(0px)",
-        stagger: { each: 0.08, from: "start" },
-        ease: "elastic.out(1, 0.75)"
-    }, "start+=0.4");
+        duration: 1.0, autoAlpha: 1, y: 0, filter: "blur(0px)",
+        stagger: { each: 0.08, from: "start" }, ease: "elastic.out(1, 0.75)"
+    }, "start+=1.0");
 
-    // Revelação da Data (Ação Secundária)
-    tl.to(dayOfWeekChars, {
-        duration: 1.2,
-        autoAlpha: 1,
-        y: 0,
-        filter: "blur(0px)",
-        stagger: 0.05,
-        ease: "elastic.out(1, 0.8)"
-    }, "start+=0.9");
+    // Grand Finale: Scramble do Relógio
+    const now = new Date();
+    const h = formatTime(now.getHours());
+    const m = formatTime(now.getMinutes());
+    const s = formatTime(now.getSeconds());
+    const clockDisplayString = `${h}:${m}.${s}`;
 
-    tl.to(fullDateChars, {
-        duration: 1.2,
-        autoAlpha: 1,
-        y: 0,
-        filter: "blur(0px)",
-        stagger: 0.04,
-        ease: "elastic.out(1, 0.8)"
-    }, "start+=1.1");
-    
-    // Animação da Barra de "Calibração"
-    tl.to(barContainer, { autoAlpha: 1, duration: 0.5 }, "start+=1.8")
-      .to(barFill, {
-          duration: 2.0,
-          width: "100%", 
-          ease: "elastic.out(1, 0.75)"
-      }, "start+=1.8");
-      
-    // Preenche a hora inicial (não animada, para preparar para o "tick")
-    tl.call(() => {
-        const now = new Date();
-        const h = formatTime(now.getHours());
-        const m = formatTime(now.getMinutes());
-        const s = formatTime(now.getSeconds());
-        const clockDisplayString = `${h}:${m}.${s}`;
-        for (let i = 0; i < clockChars.length; i++) {
-            clockChars[i].textContent = clockDisplayString[i];
+    clockChars.forEach((char, index) => {
+        if (!char.classList.contains('separator')) {
+            tl.add(animateScramble(char, clockDisplayString[index]), `>-0.75`);
         }
-    }, null, ">-0.5"); // Ocorre um pouco antes do fim da animação
+    });
+
+    // Barra de Calibração
+    tl.to(barContainer, { autoAlpha: 1, duration: 0.5 }, ">-0.5")
+      .to(barFill, { duration: 1.5, width: "100%", ease: "expo.out" }, "<");
 }
 
 // --- Inicialização da Aplicação ---

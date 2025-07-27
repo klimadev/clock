@@ -15,6 +15,10 @@ html, body {
   background-color: var(--bg-color); /* Definindo o fundo aqui */
 }
 
+#networkCanvas {
+  opacity: 0; /* Começa invisível para a animação de boot */
+}
+
 /* Remover a animação de onda RGB do HTML */
 #clock, #date, #seconds {
   animation: none; 
@@ -33,6 +37,10 @@ html, body {
 
 .char {
   display: inline-block; /* Necessário para aplicar transformações */
+  /* Dica de otimização: informa ao navegador que essas propriedades serão animadas.
+     Isso promove o elemento para sua própria camada de composição na GPU,
+     resultando em animações significativamente mais suaves. */
+  will-change: transform, opacity, filter;
 }
 
 /* Clock & Date Text Styling */
@@ -41,14 +49,12 @@ html, body {
     0 0 5px rgba(var(--primary-rgb), 0.8), 
     0 0 15px rgba(var(--primary-rgb), 0.5), 
     0 0 30px rgba(var(--primary-rgb), 0.2);
-  will-change: transform, color, text-shadow, opacity;
 }
 
 #day-of-week, #full-date {
   text-shadow: 
     0 0 3px rgba(var(--primary-rgb), 0.7), 
     0 0 8px rgba(var(--primary-rgb), 0.4);
-  will-change: transform, color, text-shadow, opacity;
 }
 
 .second {
