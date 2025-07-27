@@ -69,29 +69,6 @@
       barFill.style.width = `${percent}%`;
     }
 
-    // Função de toggle para fullscreen
-    function toggleFullScreen() {
-      const el = document.documentElement;
-
-      // Animação de pulso no HUD ao clicar
-      gsap.fromTo(hudElement, 
-        { boxShadow: "0 0 15px rgba(0, 255, 204, 0.8)" }, 
-        { boxShadow: "0 0 0 rgba(0, 255, 204, 0)", duration: 0.5, ease: "power2.out" }
-      );
-
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else if (el.requestFullscreen) {
-        el.requestFullscreen();
-      } else if (el.webkitRequestFullscreen) { /* Safari */
-        el.webkitRequestFullscreen();
-      } else if (el.mozRequestFullScreen) { /* Firefox */
-        el.mozRequestFullScreen();
-      } else if (el.msRequestFullscreen) { /* IE11 */
-        el.msRequestFullscreen();
-      }
-    }
-
     // Função para a sequência de boot-up
     function initBootSequence() {
         const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
@@ -131,8 +108,7 @@
       // Remove a autoReload por enquanto, focando na sequência de boot e UX
       // autoReload(); 
 
-      // Configura os listeners
-      document.addEventListener("click", toggleFullScreen);
+      // Configura os listeners (nenhum atualmente, pois fullscreen foi removido)
 
       // Inicia a sequência de boot
       initBootSequence();
