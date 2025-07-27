@@ -1,86 +1,69 @@
-# Relógio CyberSec
+<div align="center">
+  <img src="assets/header-animation.svg" alt="CyberSec HUD Clock - Animated Header"/>
+</div>
 
-Um relógio digital com temática cyberpunk/hacker desenvolvido com HTML, CSS e JavaScript.
+<div align="center">
 
-## Características
+# CyberSec HUD Clock
 
-- ⏰ **Relógio em tempo real** - Exibe hora e data atualizadas automaticamente
-- 🌐 **Interface cyberpunk** - Design futurístico com cores neon e fontes estilizadas
-- 📊 **HUD simulado** - Interface que simula um heads-up display com informações de status
-- 🔒 **Tema de segurança** - Inclui elementos visuais de monitoramento e threat level
-- 📱 **Responsivo** - Funciona bem em diferentes tamanhos de tela
+**Uma reimaginação do conceito original, focada em animações cinematográficas de 60 FPS e uma estética de HUD (Heads-Up Display) aprimorada.**
 
-## ✨ Melhorias Visuais & Interativas Avançadas
+</div>
 
-Este projeto foi aprimorado para oferecer uma experiência visual e interativa mais imersiva e dinâmica, aplicando princípios de **Motion Design, UI/UX e Otimização**. As principais melhorias incluem:
-
-- 🚀 **Sequência de Boot-up Futurista:** Uma animação de inicialização do sistema com efeitos de glitch e o "desenho" da borda do HUD, criando uma entrada dramática e temática.
-- 🔢 **Transições de Dígitos Glitchy:** As mudanças nos dígitos do relógio e da data são animadas com um efeito sutil de "glitch" (embaralhamento de caracteres), adicionando um toque de ficção científica e dinamismo.
-- 💡 **Feedback Visual Interativo:** O HUD reage com um pulso de brilho ao ser clicado para ativar/desativar o modo de tela cheia, proporcionando uma resposta visual agradável.
-- 📈 **Barra de Progresso Detalhada:** A barra de preenchimento agora inclui um efeito sutil de "scanline", adicionando mais textura e movimento.
-- 🌌 **Fundo de Grid Animado:** Um grid translúcido e pulsante no fundo cria uma atmosfera de "espaço digital" ou "matriz", aprofundando a imersão.
-
-Estas melhorias foram cuidadosamente implementadas utilizando a biblioteca **GSAP (GreenSock Animation Platform)** para orquestração de animações complexas e a propriedade **`will-change`** para otimização de performance.
-
-## Tecnologias Utilizadas
-
-- **HTML5** - Estrutura da aplicação
-- **CSS3** - Estilização e animações
-- **JavaScript** - Funcionalidades dinâmicas e atualização em tempo real
-- **GSAP (GreenSock Animation Platform)** - Orquestração de animações de alta performance
-- **Google Fonts** - Fontes Press Start 2P e Bitcount Grid Double
-
-## Funcionalidades
-
-- Exibição de hora e data em tempo real
-- Status de conexão simulado
-- Barra de nível de ameaça animada
-- Log de eventos simulados
-- Interface estilo terminal/hacker
-
-## Como Usar
-
-1. Clone este repositório:
-```bash
-git clone git@github.com:JuniorD-Isael/clock.git
-```
-
-2. Navegue até o diretório:
-```bash
-cd clock
-```
-
-3. Abra o arquivo `index.html` em seu navegador web
-
-Ou simplesmente acesse diretamente abrindo o arquivo `index.html` em qualquer navegador moderno.
-
-## Estrutura do Projeto
-
-```
-clock/
-├── index.html    # Arquivo principal HTML
-├── style.css     # Estilos CSS
-├── script.js     # Lógica JavaScript
-└── README.md     # Documentação do projeto
-```
-
-## Personalização
-
-O projeto é totalmente personalizável através dos arquivos CSS e JavaScript. Você pode:
-
-- Modificar as cores no arquivo `style.css`
-- Ajustar as fontes e layout
-- Adicionar novas funcionalidades no `script.js`
-- Customizar os textos e mensagens
-
-## Contribuição
-
-Sinta-se à vontade para contribuir com melhorias, correções de bugs ou novas funcionalidades através de pull requests.
-
-## Licença
-
-Este projeto está sob licença MIT. Veja o arquivo LICENSE para mais detalhes.
+<div align="center">
+  <!-- Badges -->
+  <a href="https://github.com/klimadev/clock/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/klimadev/clock?style=for-the-badge&logo=github&color=00FFFF&logoColor=white" alt="License"/>
+  </a>
+  <a href="https://github.com/klimadev/clock/commits/main">
+    <img src="https://img.shields.io/github/last-commit/klimadev/clock?style=for-the-badge&color=00FFFF" alt="Last Commit"/>
+  </a>
+</div>
 
 ---
 
-Desenvolvido com ❤️ por JuniorD-Isael
+## 🙏 Agradecimentos e Origem do Projeto
+
+Este projeto é um fork e uma reimaginação do excelente [CyberSec Clock](https://github.com/JuniorD-Isael/clock) criado por **[JuniorD-Isael](https://github.com/JuniorD-Isael)**. A base sólida que ele criou foi fundamental para a construção das melhorias visuais e de performance aqui presentes.
+
+---
+
+## ✨ Features de Destaque
+
+Este fork eleva a ideia original com uma experiência de usuário totalmente refeita, aplicando princípios de Motion Design para criar uma interface imersiva e responsiva.
+
+| Feature                      | Descrição                                                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 🎬 **Animação de Boot**      | Uma sequência de boot coreografada que revela a interface em cascata, com efeitos de "scramble" e "blur".               |
+| ⚙️ **Animação "Tick"**         | Cada segundo não apenas muda, ele "rola" para a posição com uma animação sutil, dando um feedback tátil e contínuo.      |
+| 🚀 **Otimizado para 60 FPS** | O código foi refatorado para usar `will-change` e cache de seletores, garantindo animações hiper suaves.                   |
+| 🌌 **Fundo de Rede Neural**   | Um fundo dinâmico e animado com partículas que se movem entre nós, adicionando profundidade e vida à cena.             |
+| 📅 **Transições de Data**    | A mudança da data à meia-noite é um evento visual, onde a data antiga se desintegra e a nova é revelada.                |
+
+## 💻 Tech Stack
+
+| Tecnologia   | Propósito                                      |
+| ------------ | ---------------------------------------------- |
+| **HTML5**    | Estrutura semântica da aplicação               |
+| **CSS3**     | Estilização avançada e animações de GPU        |
+| **JS (ES6+)**| Lógica dinâmica e manipulação do DOM           |
+| **GSAP**     | Orquestração de animações complexas e de alta performance |
+
+## 🚀 Como Executar
+
+Para executar este projeto localmente, basta seguir estes passos:
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/klimadev/clock.git
+    ```
+2.  **Navegue até o diretório:**
+    ```bash
+    cd clock
+    ```
+3.  **Abra o `index.html`:**
+    Abra o arquivo `index.html` em qualquer navegador moderno. Não é necessário um servidor local.
+
+## 📜 Licença
+
+Este projeto é distribuído sob a **Licença MIT**, a mesma do projeto original. Veja o arquivo `LICENSE` para mais informações.

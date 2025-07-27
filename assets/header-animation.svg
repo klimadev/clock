@@ -1,0 +1,89 @@
+<svg width="400" height="120" xmlns="http://www.w3.org/2000/svg" style="background-color: #0A2A4D; font-family: 'Rajdhani', 'Courier New', monospace;">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700');
+
+            .title {
+                font-size: 28px;
+                fill: #00FFFF; /* Cyan */
+                font-weight: 700;
+                text-anchor: middle;
+                animation: fadeIn 2s ease-in-out;
+            }
+
+            .subtitle {
+                font-size: 16px;
+                fill: #E0E0E0; /* Light Gray */
+                text-anchor: middle;
+                animation: fadeIn 2s ease-in-out 0.5s backwards;
+            }
+            
+            .digit {
+                font-size: 22px;
+                fill: #FFFFFF;
+                font-weight: 700;
+                text-anchor: middle;
+                opacity: 0;
+            }
+
+            .digit-box {
+                animation: reveal 3s ease-in-out infinite;
+            }
+
+            .glitch-char {
+                animation: glitch 3s steps(1, end) infinite;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            @keyframes reveal {
+                0%, 100% { opacity: 0; }
+                10%, 90% { opacity: 1; }
+            }
+
+            @keyframes glitch {
+                0%, 15%, 100% { text-shadow: none; transform: none; }
+                15.1% { text-shadow: -2px -2px 0 #FF00FF, 2px 2px 0 #00FF00; transform: translate(-2px, 1px); }
+                15.2% { text-shadow: 2px 2px 0 #FF00FF, -2px -2px 0 #00FF00; transform: translate(2px, -1px); }
+                15.3% { text-shadow: none; transform: none; }
+                
+                50.1% { text-shadow: -2px -2px 0 #FF00FF, 2px 2px 0 #00FF00; transform: translate(1px, -2px); }
+                50.2% { text-shadow: 2px 2px 0 #FF00FF, -2px -2px 0 #00FF00; transform: translate(-1px, 2px); }
+                50.3% { text-shadow: none; transform: none; }
+            }
+        </style>
+    </defs>
+
+    <text x="200" y="40" class="title">CyberSec HUD Clock</text>
+    <text x="200" y="65" class="subtitle">A Cinematic &amp; High-Performance Fork</text>
+
+    <g transform="translate(140, 95)">
+        <g class="digit-box" style="animation-delay: 0s;">
+            <text x="0" y="0" class="digit glitch-char">0</text>
+        </g>
+        <g class="digit-box" style="animation-delay: 0.1s;">
+            <text x="20" y="0" class="digit glitch-char">7</text>
+        </g>
+        
+        <text x="35" y="0" class="digit digit-box" style="animation-delay: 0.2s;">:</text>
+
+        <g class="digit-box" style="animation-delay: 0.3s;">
+            <text x="50" y="0" class="digit glitch-char">4</text>
+        </g>
+        <g class="digit-box" style="animation-delay: 0.4s;">
+            <text x="70" y="0" class="digit glitch-char">2</text>
+        </g>
+        
+        <text x="85" y="0" class="digit digit-box" style="animation-delay: 0.5s;">.</text>
+
+        <g class="digit-box" style="animation-delay: 0.6s;">
+            <text x="100" y="0" class="digit glitch-char">5</text>
+        </g>
+        <g class="digit-box" style="animation-delay: 0.7s;">
+            <text x="120" y="0" class="digit glitch-char">9</text>
+        </g>
+    </g>
+</svg>
