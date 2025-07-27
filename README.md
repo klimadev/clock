@@ -13,7 +13,7 @@
 <div align="center">
   <!-- Badges -->
   <a href="https://github.com/klimadev/clock/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/klimadev/clock?style=for-the-badge&logo=github&color=00FFFF&logoColor=white" alt="License"/>
+    <img src="https://img.shields.io/github/license/klimadev/clock?label=license&style=for-the-badge&logo=github&color=00FFFF&logoColor=white" alt="License"/>
   </a>
   <a href="https://github.com/klimadev/clock/commits/main">
     <img src="https://img.shields.io/github/last-commit/klimadev/clock?style=for-the-badge&color=00FFFF" alt="Last Commit"/>
