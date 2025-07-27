@@ -1,17 +1,26 @@
-    html, body {
-      margin: 0; padding: 0;
-      height: 100%; width: 100%;
-      background: #000000;
-      font-family: 'Rajdhani', sans-serif;
-      color: #00ffcc;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative; /* Para o pseudo-elemento do grid */
+    :root {
+      --primary-color: #00ffcc; /* Base Neon Green */
+      --primary-rgb: 0, 255, 204; /* RGB para variações de opacidade */
+      --secondary-color: #ff00ff; /* Neon Magenta/Purple accent */
+      --secondary-rgb: 255, 0, 255; /* RGB para variações de opacidade */
+      --glitch-color: #ff6600; /* Laranja para flashes de glitch específicos */
+      --glitch-color-rgb: 255, 102, 0; /* RGB do glitch para text-shadow */
+
+      /* Tailwind Customization for colors and fonts - Referências para as variáveis CSS */
+      /* O Tailwind CDN com JIT lê isso diretamente do <script type="text/tailwindcss"> no HTML */
+      /* Mas manter as variáveis aqui é bom para o CSS que não é puramente Tailwind */
     }
 
-    /* Efeito de Grid de Fundo */
+    /* As fontes agora são definidas no Tailwind Config via fontFamily e usadas como classes como font-clock */
+
+    /* Regras globais que não serão sobrepostas pelo Tailwind ou são base */
+    html, body {
+      /* Tailwind já cuida de 'margin', 'padding', 'height', 'width', 'background', 'display', 'justify-content', 'align-items', 'min-h-screen', 'overflow-hidden', 'relative' */
+      font-family: var(--font-date); /* Fallback/padrão, overridden por classes específicas */
+      color: var(--primary-color); /* Fallback/padrão, overridden por classes específicas */
+    }
+
+    /* Efeito de Grid de Fundo - Mantido no CSS pois é complexo e global */
     body::before {
       content: '';
       position: absolute;
@@ -20,11 +29,11 @@
       width: 100%;
       height: 100%;
       background-image: 
-        linear-gradient(to right, rgba(0, 255, 204, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+        linear-gradient(to right, rgba(var(--primary-rgb), 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05) 1px, transparent 1px);
       background-size: 50px 50px;
       opacity: 0.1;
-      z-index: -1; /* Fica atrás de todo o conteúdo */
+      z-index: -1;
       animation: grid-pulse 10s infinite alternate;
     }
 
@@ -33,79 +42,33 @@
       100% { opacity: 0.15; transform: scale(1.02); }
     }
 
-    @keyframes rgbWave {
-      0% { 
-        color: #ff6666; 
-        text-shadow: 0 0 10px rgba(255, 102, 102, 0.5), 0 0 20px rgba(255, 102, 102, 0.3);
-      }
-      16.66% { 
-        color: #ffaa66; 
-        text-shadow: 0 0 10px rgba(255, 170, 102, 0.5), 0 0 20px rgba(255, 170, 102, 0.3);
-      }
-      33.33% { 
-        color: #ffff66; 
-        text-shadow: 0 0 10px rgba(255, 255, 102, 0.5), 0 0 20px rgba(255, 255, 102, 0.3);
-      }
-      50% { 
-        color: #66ff66; 
-        text-shadow: 0 0 10px rgba(102, 255, 102, 0.5), 0 0 20px rgba(102, 255, 102, 0.3);
-      }
-      66.66% { 
-        color: #66aaff; 
-        text-shadow: 0 0 10px rgba(102, 170, 255, 0.5), 0 0 20px rgba(102, 170, 255, 0.3);
-      }
-      83.33% { 
-        color: #aa66ff; 
-        text-shadow: 0 0 10px rgba(170, 102, 255, 0.5), 0 0 20px rgba(170, 102, 255, 0.3);
-      }
-      100% { 
-        color: #ff6666; 
-        text-shadow: 0 0 10px rgba(255, 102, 102, 0.5), 0 0 20px rgba(255, 102, 102, 0.3);
-      }
+    /* Animações de onda RGB para relógio e data - Mantidas no CSS */
+    @keyframes rgbWave-clock {
+      0% { color: var(--primary-color); text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.7), 0 0 20px rgba(var(--primary-rgb), 0.5), 0 0 30px rgba(var(--primary-rgb), 0.3); }
+      25% { color: #00ccff; text-shadow: 0 0 10px rgba(0, 204, 255, 0.7), 0 0 20px rgba(0, 204, 255, 0.5), 0 0 30px rgba(0, 204, 255, 0.3); }
+      50% { color: var(--secondary-color); text-shadow: 0 0 10px rgba(var(--secondary-rgb), 0.7), 0 0 20px rgba(var(--secondary-rgb), 0.5), 0 0 30px rgba(var(--secondary-rgb), 0.3); }
+      75% { color: #cc00ff; text-shadow: 0 0 10px rgba(204, 0, 255, 0.7), 0 0 20px rgba(204, 0, 255, 0.5), 0 0 30px rgba(204, 0, 255, 0.3); }
+      100% { color: var(--primary-color); text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.7), 0 0 20px rgba(var(--primary-rgb), 0.5), 0 0 30px rgba(var(--primary-rgb), 0.3); }
     }
 
-    @keyframes rgbWaveDate {
-      0% { 
-        color: #66ffaa; 
-        text-shadow: 0 0 8px rgba(102, 255, 170, 0.4), 0 0 15px rgba(102, 255, 170, 0.2);
-      }
-      25% { 
-        color: #aaff66; 
-        text-shadow: 0 0 8px rgba(170, 255, 102, 0.4), 0 0 15px rgba(170, 255, 102, 0.2);
-      }
-      50% { 
-        color: #ff66aa; 
-        text-shadow: 0 0 8px rgba(255, 102, 170, 0.4), 0 0 15px rgba(255, 102, 170, 0.2);
-      }
-      75% { 
-        color: #66aaff; 
-        text-shadow: 0 0 8px rgba(102, 170, 255, 0.4), 0 0 15px rgba(102, 170, 255, 0.2);
-      }
-      100% { 
-        color: #66ffaa; 
-        text-shadow: 0 0 8px rgba(102, 255, 170, 0.4), 0 0 15px rgba(102, 255, 170, 0.2);
-      }
-    }    /* Inicialmente invisível para a animação de boot-up */
+    @keyframes rgbWave-date {
+      0% { color: var(--primary-color); text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5), 0 0 15px rgba(var(--primary-rgb), 0.3); }
+      33% { color: #ffcc00; text-shadow: 0 0 8px rgba(255, 204, 0, 0.5), 0 0 15px rgba(255, 204, 0, 0.3); }
+      66% { color: var(--secondary-color); text-shadow: 0 0 8px rgba(var(--secondary-rgb), 0.5), 0 0 15px rgba(var(--secondary-rgb), 0.3); }
+      100% { color: var(--primary-color); text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5), 0 0 15px rgba(var(--primary-rgb), 0.3); }
+    }
+
+    /* HUD - Propriedades complexas que não são facilmente expressas em Tailwind ou são mais complexas */
     #hud {
-      opacity: 0;
-      text-align: center;
-      border: 2px solid transparent; /* Bordas transparentes, GSAP vai animar */
-      background: rgba(0, 0, 0, 0.4);
-      padding: 2em 3em;
-      border-radius: 12px;
-      max-width: 95vw;
-      max-height: 95vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 2em;
-      overflow: hidden;
-      box-shadow: 0 0 0 rgba(0, 255, 204, 0); /* Para efeito de pulso */
-      position: relative; /* Para o overlay de glitch */
+      border: 2px solid rgba(var(--primary-rgb), 0.4); /* Borda com opacidade variável */
+      background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 100%); /* Fundo com gradiente sutil */
+      box-shadow:
+        0 0 5px rgba(var(--primary-rgb), 0.6),
+        0 0 15px rgba(var(--primary-rgb), 0.4),
+        0 0 30px rgba(var(--primary-rgb), 0.2); /* Múltiplas sombras para um brilho mais rico */
     }
 
-    /* Overlay para efeito de ruído/glitch */
+    /* Overlay para efeito de ruído/glitch na tela - Mantido no CSS */
     #hud::before {
         content: '';
         position: absolute;
@@ -113,17 +76,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LmweYWQtaHR0cC8xLjAvcmRmLXNjaGVtYSNpcmNoZWR1bGUvIiB4bWxuczpmaWx0ZXJDcml0ZXJpYXM9Imh0dHA6Ly9wcm9nZXNzaXZlLXdlYi5naXRodWIuaW8vZmls/ZXJzLTIuMC8iPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWZEb2M9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29t/eGFwLzEuMC9tbS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ViL2RjdGVybXMvIiB4bWxuczpjaW09Imh0dHA6Ly93d3cud3Mub3JnLzIwMDQvMDQvcXwvZGMteGxpbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ViL2RjdGVybXMvIiB4bWxuczpjdXJzdG9tPSJodHRwOi8vcGhpY2FsLW1lZGlhLmNvbS9ucy9hZG9iZS8xLjAvY3VzdG9tLyIgeG1sbnM6YWRvYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6cHJvc29iZWM9Imh0dHA6Ly9waGljYWwtbWVkaWEuY29tL25zL2Fkb2JlLzEuMC9wcm9zb2JlYy8iIHhtbG5zOmFkYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczp4Ym1wdj0iaHR0cDovL25zLmFkb2JlLmNvbS94YW1wL21pbm9yLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vYWRvYmUuY29tL3hnZi92MTIvZG9j/cy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpib29sc3VyY2VkPSJodHRwOi8vd3d3LmJvb3Rz/dXJjZS5jb20vbnMvYWRvYmUvMS4wLyIgeG1sbnM6c2VvPmh0dHA6Ly9zY2hlbWFzLm9yZy9zZW8vIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0I0MDNGNkE2MzgyMTFFNTg5RDVCMUUzMEIzNzg2Q0QiIHN0UmVmOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0I0MDNGNjk2MzgyMTFFNTg5RDVCMUUzMEIzNzg2Q0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InciPz4o0uAAAAATSURBVHjaYmBgYGBgYMDAAAACQAAOQz2WAAAAAElFTkSuQmCC') repeat;
-        opacity: 0; /* Controlado por JS */
+        /* Pequena imagem base64 para o padrão de ruído */
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTZlNUa3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21ldGEvIiB4bXAtdGtkPSJodHRwOi8vcGhpY2FsLW1lZGlhLmNvbS9ucy9hZG9iZS8xLjAvY3VzdG9tLyIgeG1sbnM6cmRmPSJodHRwOi8vd3d3Lnczd3d3Lm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjb21zOmFkYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ebnZjdGVybXMvIiB4bWxuczpjaW09Imh0dHA6Ly93d3cud3Mub3JnLzIwMDQvMDQvcXwvZGMteGxpbnM6ZGN0ZXJtcD0iaHR0cDovL3B1cmwud2ViL2RjdGVybXMvIiB4bWxuczpjdXJzdG9tPSJodHRwOi8vcGhpY2FsLW1lZGlhLmNvbS9ucy9hZG9iZS8xLjAvY3VzdG9tLyIgeG1sbnM6YWRvYmU9Imh0dHA6Ly9ucy5hZG9iZS5jb20vYWRvYmUvMS4wLyIgeG1sbnM6cHJvc29iZWM9Imh0dHA6Ly9waGljYWwtbWVkaWEuY29tL25zL2Fkb2JlLzEuMC9wcm9z/YmVjLyIgeG1sbnM6YWRiZT0iaHR0cDovL25zLmFkb2JlLmNvbS9hZG9iZS8xLjAvIiB4bWxuczpzY2hlbWFzLm9yZ2FuaXphdGlvbj0iaHR0cDovL3NjaGVtYXMub3JnL29yZ2FuaXphdGlvbi8iIHhtbG5zOnN0ZF8xPTJodHRwOi8vbnMuYWRvYmUuY29tL3hhc/AvMS4wL2RlZmF1bHQvIiB4bWxuczpzdGRfMT0ycmRmOiJodHRwOi8vbnMuYWRvYmUuY29tL3hhc/AvMS4wLyI+PHJkZjpSREY+PHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiPjx4bXBNTTpkZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPXhtbC5pZDo0NzQxNjk1OTQxNjgxMUU2QjlBQjkwQjMxOTU1RTJCMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NzQxNjk1OTQxNjgxMUU2QjlBQjkwQjMxOTU1RTJCMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJ3Ij8+x4f71AAAAF9JREFUeNqEYoCDgYGCmYGBgoWBAQEIMh/gDgQFBQYHBzAwMDDwAgFBNBQQEBCBiYGBgYGBAQEBMhBGBgYGRgUFBSYGBgYMDAwMJgAAiFkgKAgIMR+mBhJgIADmJ5/QdE8uAAAAAElFTkSuQmCC') repeat;
+        opacity: 0;
         pointer-events: none;
         z-index: 10;
     }
 
-    /* Efeitos de borda para o boot-up */
-    #hud.boot-animating {
-        border-color: transparent; /* A borda será desenhada com GSAP */
-    }
-    
     .glitch-overlay {
         content: '';
         position: absolute;
@@ -131,57 +90,53 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: var(--glitch-color);
         opacity: 0;
         pointer-events: none;
         z-index: 9999;
     }
     
+    /* Clock Line - A classe flex flex-col items-center gap-6 w-full está no HTML */
 
-    .clock-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5em;
-    }
-
+    /* Clock, Date, Seconds - Tamanhos responsivos via Tailwind text-[] e clamp() no HTML */
     #clock {
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      font-size: 20vw;
-      user-select: none;
-      animation: rgbWave 8s infinite;
+      /* Tailwind: font-clock, font-extrabold, text-[clamp(...)], leading-none, select-none, text-primary, animate-rgbWave-clock, opacity-0, invisible, translate-y-5 */
       will-change: transform, color, text-shadow, opacity;
     }
 
     #date {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
-      font-size: 5vw;
-      user-select: none;
-      animation: rgbWaveDate 6s infinite;
+      /* Tailwind: font-date, font-semibold, text-[clamp(...)], select-none, text-primary, animate-rgbWave-date, opacity-0, invisible, translate-y-5 */
       will-change: transform, color, text-shadow, opacity;
     }
 
+    #seconds {
+      /* Tailwind: font-milliseconds, text-[clamp(...)], align-super, opacity-70, animate-rgbWave-date */
+      /* A fonte já está definida no font-family do Tailwind config */
+      text-shadow:
+        0 0 5px rgba(var(--primary-rgb), 0.5),
+        0 0 10px rgba(var(--primary-rgb), 0.3);
+      will-change: opacity, color, text-shadow;
+    }
+
+    /* Separadores com flicker (definidos no Tailwind config) */
+    .separator {
+        /* Classes Tailwind 'animate-flicker' e ':'' / '.' no HTML */
+        font-family: var(--font-clock); /* Para manter a fonte consistente com o relógio */
+        font-weight: 900;
+        margin: 0 0.05em; /* Espaçamento sutil */
+    }
+
+    /* Barra de Progresso - Propriedades complexas em CSS, layout em Tailwind */
     .bar {
-      height: 20px;
-      background: transparent;
-      border: 2px dashed #00ffcc;
-      border-radius: 10px;
-      overflow: hidden;
-      width: 80vw;
-      max-width: 600px;
+      /* Tailwind: w-full, max-w-md, h-5, bg-transparent, border-2, border-dashed, border-primary, rounded-xl, overflow-hidden, opacity-0, invisible */
       position: relative;
       will-change: width, opacity;
     }
 
     .bar-fill {
-      height: 100%;
-      background: #00ffcc;
-      border-radius: 10px;
+      /* Tailwind: h-full, bg-primary, rounded-xl, relative, overflow-hidden */
+      background: linear-gradient(to right, rgba(var(--primary-rgb), 0.8), var(--primary-color));
       will-change: width, background-color;
-      position: relative;
-      overflow: hidden;
     }
 
     .bar-fill::before {
@@ -199,4 +154,29 @@
     @keyframes scanline {
       from { background-position: 0 0; }
       to { background-position: 0 4px; }
+    }
+
+    /* Texto de Pré-Boot - Mantido no CSS, com font-terminal do Tailwind */
+    .pre-boot-text {
+      font-family: var(--font-terminal); /* Usando a nova variável de fonte do Tailwind */
+      color: var(--primary-color);
+      font-size: clamp(0.8rem, 1.5vw + 0.5rem, 2rem); /* Mais responsivo e legível */
+      opacity: 0;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.8);
+      white-space: pre; /* Preserva o espaço em branco para mensagens de várias linhas */
+      line-height: 1.5;
+      text-align: center; /* Centraliza o texto */
+    }
+
+    /* Cursor para o efeito de digitação */
+    .pre-boot-text::after {
+      content: '_'; /* Caractere do cursor */
+      animation: cursor-blink 1s infinite step-end; /* Animação de piscar do Tailwind */
+      display: inline-block;
+      margin-left: 0.1em;
+      opacity: 0; /* Escondido inicialmente, GSAP irá controlar */
     }
