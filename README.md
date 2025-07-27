@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# CyberSec HUD Clock
+# CyberSec HUD Clock 
 
 **Uma reimaginação do conceito original, focada em animações cinematográficas de 60 FPS e uma estética de HUD (Heads-Up Display) aprimorada.**
 
